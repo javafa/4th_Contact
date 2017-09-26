@@ -3,9 +3,9 @@ package com.veryworks.android.contact;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +18,30 @@ import java.util.List;
  * -. 조건절을 정의할 수도 있다
  * 4. CR 로 쿼리한 데이터를 Cursor 에 담는다
  * 5. Cursor에 담긴 데이터를 반복문을 돌면서 처리한다.
+ *
+ *    - 권한 설정
+ *    Manifest.permission.READ_CONTACTS
+ *    Manifest.permission.READ_EXTERNAL_STORAGE
+ *
+ *    - 전화 걸기
+ *    Manifest.permission.CALL_PHONE
+ *
  */
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends BaseActivity {
+    RecyclerView recyclerView;
+    CustomAdapter adapter;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void init() {
         setContentView(R.layout.activity_main);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        adapter = new CustomAdapter();
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        List<Contact> data = load();
+        adapter.setDataAndRefresh(data);
     }
+
 
     private List<Contact> load(){
         List<Contact> contacts = new ArrayList<>();
