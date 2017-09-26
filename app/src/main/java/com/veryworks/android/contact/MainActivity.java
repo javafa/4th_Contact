@@ -23,8 +23,14 @@ import java.util.List;
  *    Manifest.permission.READ_CONTACTS
  *    Manifest.permission.READ_EXTERNAL_STORAGE
  *
- *    - 전화 걸기
+ *    - 전화 걸기 권한
  *    Manifest.permission.CALL_PHONE
+ *
+ *    - 전화 거는 인텐트
+ *    String num = "tel:" + number;
+      Uri uri = Uri.parse(num);
+      Intent intent = new Intent("android.intent.action.CALL", uri);
+      startActivity(intent);
  *
  */
 public class MainActivity extends BaseActivity {
