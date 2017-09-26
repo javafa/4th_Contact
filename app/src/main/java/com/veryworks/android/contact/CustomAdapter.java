@@ -15,10 +15,10 @@ import java.util.List;
  * Created by pc on 9/26/2017.
  */
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder>{
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder> {
     List<Contact> data;
 
-    public void setDataAndRefresh(List<Contact> data){
+    public void setDataAndRefresh(List<Contact> data) {
         this.data = data;
         // 데이터가 변경되었음을 알린다
         notifyDataSetChanged();
@@ -43,22 +43,24 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder>{
         return data.size();
     }
 
-    class Holder extends RecyclerView.ViewHolder{
+    class Holder extends RecyclerView.ViewHolder {
         private String number;
         private TextView textNumber;
         private TextView textName;
         private ImageButton btnCall;
+
         public Holder(View v) {
             super(v);
             textNumber = (TextView) v.findViewById(R.id.textNumber);
             textName = (TextView) v.findViewById(R.id.textName);
             btnCall = (ImageButton) v.findViewById(R.id.btnCall);
             btnCall.setOnClickListener(new View.OnClickListener() {
+                @SuppressWarnings("MissingPermission")
                 @Override
                 public void onClick(View view) {
                     String num = "tel:" + number;
                     Uri uri = Uri.parse(num);
-                    Intent intent = new Intent("android.intent.action.CALL",uri);
+                    Intent intent = new Intent(Intent.ACTION_CALL, uri);
                     view.getContext().startActivity(intent);
                 }
             });
